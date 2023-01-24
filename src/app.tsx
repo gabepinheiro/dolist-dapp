@@ -1,4 +1,4 @@
-import { Button, Checkbox } from './components'
+import { Button, Checkbox, Input } from './components'
 
 export function App () {
   return (
@@ -6,6 +6,7 @@ export function App () {
       <h1 className='text-4xl font-bold text-white'>dolist. - DApp</h1>
       <Button>Adicionar</Button>
       <Checkbox />
+      <Input placeholder='Compras da semana' />
     </>
   )
 }

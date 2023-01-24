@@ -32,6 +32,9 @@ module.exports = {
       animation: {
         fillAnimation: 'fillAnimation 350ms forwards',
       },
+      boxShadow: {
+        rounded: '0px 0px 0px 2px',
+      },
     },
   },
   plugins: [],
