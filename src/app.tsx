@@ -1,6 +1,11 @@
 import { Button, Checkbox, Input } from '@/components'
 import { ReactComponent as Logo } from '@/assets/logo.svg'
 
+import { metaMask, hooks } from '@/connectors/metamask'
+import { useEffect } from 'react'
+
+const { useAccount, useIsActive } = hooks
+
 function NewTask () {
   return (
     <div>
@@ -28,9 +33,36 @@ function TaskItem () {
 }
 
 export function App () {
+  const account = useAccount()
+  const isActive = useIsActive()
+
+  const handleConnect = async () => await metaMask.activate()
+  const handleDisconnect = async () => {
+    if (metaMask.deactivate) {
+      await metaMask.deactivate()
+    } else {
+      await metaMask.resetState()
+    }
+  }
+
+  useEffect(() => {
+    (async () => {
+      await metaMask.connectEagerly()
+    })()
+  }, [])
+
   return (
     <main className='max-w-[635px] w-full flex flex-col'>
-      <div className='pt-14 flex justify-center'>
+      <div className='absolute right-10 flex gap-6 items-center'>
+        <p className='text-white'>{account}</p>
+        <Button
+          variant={isActive ? 'secondary' : 'primary'}
+          onClick={isActive ? handleDisconnect : handleConnect}
+        >
+          {isActive ? 'Disconnect' : 'Connect'}
+        </Button>
+      </div>
+      <div className='pt-20 flex justify-center'>
         <Logo />
       </div>
       <NewTask />
