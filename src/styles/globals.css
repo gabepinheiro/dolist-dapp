@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind utilities;
 @tailwind components;
+
+.checkbox > input:checked + div > img {
+  @apply scale-100 z-10 animate-fillAnimation;
+}
